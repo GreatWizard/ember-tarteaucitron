@@ -1,9 +1,15 @@
 {
   "name": "ember-tarteaucitron",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Ember integration of tarteaucitron.js, a RGPD friendly cookie manager.",
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "cookie",
+    "law",
+    "rgpd",
+    "gdpr",
+    "cookie",
+    "tarteaucitron"
   ],
   "repository": "",
   "license": "MIT",
@@ -25,9 +31,15 @@
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each"
   },
+  "peerDependencies": {
+    "tarteaucitronjs": "^1.9.5"
+  },
   "dependencies": {
+    "broccoli-funnel": "^3.0.8",
+    "broccoli-merge-trees": "^4.2.0",
     "ember-cli-babel": "^7.26.11",
-    "ember-cli-htmlbars": "^6.0.1"
+    "ember-cli-htmlbars": "^6.0.1",
+    "validate-peer-dependencies": "^2.0.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
@@ -64,6 +76,7 @@
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
     "qunit-dom": "^2.0.0",
+    "tarteaucitronjs": "^1.9.5",
     "webpack": "^5.65.0"
   },
   "engines": {

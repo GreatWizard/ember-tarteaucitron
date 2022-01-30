@@ -8754,7 +8754,7 @@ resolve-package-path@^3.1.0:
     path-root "^0.1.1"
     resolve "^1.17.0"
 
-resolve-package-path@^4.0.1:
+resolve-package-path@^4.0.0, resolve-package-path@^4.0.1:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/resolve-package-path/-/resolve-package-path-4.0.3.tgz#31dab6897236ea6613c72b83658d88898a9040aa"
   integrity sha512-SRpNAPW4kewOaNUt8VPqhJ0UMxawMwzJD8V7m1cJfdSTK9ieZwS6K7Dabsm4bmLFM96Z5Y/UznrpG5kt1im8yA==
@@ -9700,6 +9700,11 @@ tapable@^2.1.1, tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
+tarteaucitronjs@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/tarteaucitronjs/-/tarteaucitronjs-1.9.5.tgz#905572bcfdfd1ae102166530f6efcff3d848ce46"
+  integrity sha512-csUmmbHAtlDQLwCjj++VTHjGMxmZX5cJaqH+bASR38psBr7taonmu/DkXhLDzBbZImZqWuHi28dYahz0bH8Fvw==
+
 temp@0.9.4:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/temp/-/temp-0.9.4.tgz#cd20a8580cb63635d0e4e9d4bd989d44286e7620"
@@ -10243,6 +10248,14 @@ validate-peer-dependencies@^1.2.0:
   integrity sha512-nd2HUpKc6RWblPZQ2GDuI65sxJ2n/UqZwSBVtj64xlWjMx0m7ZB2m9b2JS3v1f+n9VWH/dd1CMhkHfP6pIdckA==
   dependencies:
     resolve-package-path "^3.1.0"
+    semver "^7.3.2"
+
+validate-peer-dependencies@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/validate-peer-dependencies/-/validate-peer-dependencies-2.0.0.tgz#a1bd33472517932d7c859e6c03eb849849207794"
+  integrity sha512-i2I3vl+9yk+gI0YCruDa29mzaNykLbSbUVVNQY/mBTLLYjQxVbklqBdTdH2iTpxV9AHH1u0dKlk/zl1sjHTfug==
+  dependencies:
+    resolve-package-path "^4.0.0"
     semver "^7.3.2"
 
 vary@^1, vary@~1.1.2:

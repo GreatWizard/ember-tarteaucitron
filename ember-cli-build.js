@@ -1,11 +1,13 @@
-'use strict';
+'use strict'
 
-const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon')
 
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
-    // Add options here
-  });
+    'ember-tarteaucitron': {
+      enabled: true,
+    },
+  })
 
   /*
     This build file specifies the options for the dummy test app of this
@@ -14,12 +16,12 @@ module.exports = function (defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  const { maybeEmbroider } = require('@embroider/test-setup');
+  const { maybeEmbroider } = require('@embroider/test-setup')
   return maybeEmbroider(app, {
     skipBabel: [
       {
         package: 'qunit',
       },
     ],
-  });
-};
+  })
+}
