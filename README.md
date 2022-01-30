@@ -39,8 +39,8 @@ module.exports = function (environment) {
         },
       },
       config: {}, // tarteaucitron init configuration, see https://github.com/AmauriC/tarteaucitron.js#how-to-use
-      jobs: ['googlefonts'], // Jobs name to register
-      user: { // Configuration used by jobs
+      jobs: ['googlefonts'], // Services name to activate
+      user: { // Configuration used by services
         googleFonts: ['Tangerine'], // Configuration for googlefonts
       },
     },
@@ -65,6 +65,69 @@ module.exports = function (defaults) {
   })
 
   [...]
+}
+```
+
+### API
+
+The service `tarteaucitron` exposes functions in order to add new jobs programmatically and listen to events.
+
+#### Setup a new job
+
+- `addJob(name, config)`: Add a new job with configuration
+
+#### Service events
+
+- `addServiceAddedListener(name, callback)`: listener called when a service is added
+- `removeServiceAddedListener(name, callback)`: remove the listener when a service is added
+- `addServiceLoadedListener(name, callback)`: listener called when a service is loaded
+- `removeServiceLoadedListener(name, callback)`: remove the listener when a service is loaded
+
+The service names are defined in `tarteaucitron`: https://github.com/AmauriC/tarteaucitron.js/blob/master/tarteaucitron.services.js
+
+#### Tarteaucitron events
+
+- `addTACListener(name, callback)`: listener when an event occurred
+- `removeTACListener(name, callback)`: remove listener when an event occurred
+
+The following events are available:
+
+- **tac.root_available**: the root element with panel has been created, services will be loaded
+- **tac.open_alert**
+- **tac.close_alert**
+- **tac.open_panel**
+- **tac.close_panel**
+
+##### Code example
+
+```js
+import Controller from '@ember/controller'
+import { service } from '@ember/service'
+import { tracked } from '@glimmer/tracking'
+
+export default class ApplicationController extends Controller {
+  @service tarteaucitron
+
+  @tracked googlefontsLoaded = false
+  @tracked facebookpixelLoaded = false
+
+  constructor() {
+    super(...arguments)
+    this.tarteaucitron.addJob('googlefonts', {
+      googleFonts: ['Tangerine'],
+    })
+    this.tarteaucitron.addServiceLoadedListener('googlefonts', () => {
+      this.googlefontsLoaded = true
+      this.tarteaucitron.removeServiceLoadedListener('googlefonts')
+    })
+    this.tarteaucitron.addServiceLoadedListener('facebookpixel', () => {
+      this.facebookpixelLoaded = true
+      this.tarteaucitron.removeServiceLoadedListener('facebookpixel')
+    })
+    setTimeout(() => {
+      this.tarteaucitron.addJob('facebookpixel')
+    }, 5000)
+  }
 }
 ```
 

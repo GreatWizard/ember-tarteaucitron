@@ -2,4 +2,18 @@
 
 <h1 id='title'>Welcome to Ember-Tarteaucitron</h1>
 
+<div>
+  <p>List of loaded jobs:</p>
+  <ul>
+    {{#each this.tarteaucitron.jobs as |job|}}
+      <li>{{job}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<p>GoogleFonts is authorized?
+  {{if this.googlefontsLoaded 'Yes' 'No'}}</p>
+<p>FacebookPixel is authorized?
+  {{if this.facebookpixelLoaded 'Yes' 'No'}}</p>
+
 {{outlet}}

@@ -1,6 +1,7 @@
 /* global tarteaucitron */
 import Service from '@ember/service'
 import { getOwner } from '@ember/application'
+import { tracked } from '@glimmer/tracking'
 
 const DEFAULT_OPTIONS = {
   customServices: [],
@@ -10,7 +11,21 @@ const DEFAULT_OPTIONS = {
   jobs: [],
 }
 
+const EVENT_ADDED_SUFFIX = '_added'
+const EVENT_LOADED_SUFFIX = '_loaded'
+const EVENTS = [
+  'tac.root_available',
+  'tac.open_alert',
+  'tac.close_alert',
+  'tac.open_panel',
+  'tac.close_panel',
+]
+
 export default class TarteaucitronService extends Service {
+  listeners = {}
+
+  @tracked jobs = []
+
   constructor() {
     super(...arguments)
     if (window.tarteaucitron) {
@@ -18,6 +33,10 @@ export default class TarteaucitronService extends Service {
         getOwner(this).resolveRegistration('config:environment')
       this._init(Object.assign({}, DEFAULT_OPTIONS, tacConfig))
     }
+  }
+
+  _refreshJobs() {
+    this.jobs = tarteaucitron.job
   }
 
   _init(tacConfig) {
@@ -39,6 +58,72 @@ export default class TarteaucitronService extends Service {
     tarteaucitron.user = tacConfig.user || {}
 
     tarteaucitron.job = tarteaucitron.job || []
-    tacConfig?.jobs?.forEach((job) => tarteaucitron.job.push(job))
+    tacConfig?.jobs?.forEach((job) => {
+      tarteaucitron.job.push(job)
+    })
+    this._refreshJobs()
+  }
+
+  addJob(job, user = {}) {
+    Object.assign(tarteaucitron.user, user)
+    tarteaucitron.job.push(job)
+    this._refreshJobs()
+  }
+
+  _addListener(context, name, callback, suffix = '') {
+    let event = `${name}${suffix}`
+    if (!this.listeners[event]) {
+      this.listeners[event] = []
+    }
+    this.listeners[event].push(callback)
+    context.addEventListener(event, callback)
+  }
+
+  _removeListener(context, name, callback, suffix = '') {
+    let event = `${name}${suffix}`
+    if (!this.listeners[event] || !this.listeners[event].length === 0) {
+      return
+    }
+    if (callback) {
+      this.listeners[event] = this.listeners[event].filter(
+        (listener) => listener !== callback
+      )
+      context.removeEventListener(event, callback)
+    } else {
+      this.listeners[event].forEach((listener) => {
+        context.removeEventListener(event, listener)
+      })
+      this.listeners[event] = []
+    }
+  }
+
+  addServiceAddedListener(name, callback) {
+    this._addListener(document, name, callback, EVENT_ADDED_SUFFIX)
+  }
+
+  removeServiceAddedListener(name, callback) {
+    this._removeListener(document, name, callback, EVENT_ADDED_SUFFIX)
+  }
+
+  addServiceLoadedListener(name, callback) {
+    this._addListener(document, name, callback, EVENT_LOADED_SUFFIX)
+  }
+
+  removeServiceLoadedListener(name, callback) {
+    this._removeListener(document, name, callback, EVENT_LOADED_SUFFIX)
+  }
+
+  addTACListener(name, callback) {
+    if (!EVENTS.includes(name)) {
+      throw new Error(`${name} is not a valid event`)
+    }
+    this._addListener(window, name, callback)
+  }
+
+  removeTACListener(name, callback) {
+    if (!EVENTS.includes(name)) {
+      throw new Error(`${name} is not a valid event`)
+    }
+    this._addListener(window, name, callback)
   }
 }
