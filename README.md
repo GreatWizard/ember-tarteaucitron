@@ -1,5 +1,10 @@
 # ember-tarteaucitron
 
+[![CI](https://github.com/GreatWizard/ember-tarteaucitron/actions/workflows/ci.yml/badge.svg)](https://github.com/GreatWizard/ember-tarteaucitron/actions/workflows/ci.yml)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-tarteaucitron.svg)](https://emberobserver.com/addons/ember-tarteaucitron)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Liberapay](https://img.shields.io/liberapay/patrons/GreatWizard.svg?logo=liberapay)](https://liberapay.com/GreatWizard/)
+
 Ember integration of [tarteaucitron.js](https://github.com/AmauriC/tarteaucitron.js), a RGPD friendly cookie manager.
 
 ## Compatibility

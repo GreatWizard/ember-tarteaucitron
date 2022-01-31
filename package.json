@@ -8,12 +8,17 @@
     "law",
     "rgpd",
     "gdpr",
-    "cookie",
     "tarteaucitron"
   ],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GreatWizard/ember-tarteaucitron.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": {
+    "name": "Guillaume Gérard",
+    "url": "https://guillaume.sh"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
