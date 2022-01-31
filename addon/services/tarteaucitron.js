@@ -53,7 +53,9 @@ export default class TarteaucitronService extends Service {
       (key) => (window[key] = tacConfig.preInit[key])
     )
 
-    tarteaucitron.cdn = tacConfig.cdn
+    if (tacConfig?.preInit?.tarteaucitronForceCDN) {
+      tarteaucitron.cdn = tacConfig.preInit.tarteaucitronForceCDN
+    }
 
     tarteaucitron.init(tacConfig.config || {})
 

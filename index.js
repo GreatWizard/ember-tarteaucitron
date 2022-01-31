@@ -6,6 +6,7 @@ const mergeTrees = require('broccoli-merge-trees')
 
 const defaultOptions = {
   enabled: true,
+  importAssets: true,
 }
 
 module.exports = {
@@ -58,7 +59,7 @@ module.exports = {
 
     let addonOptions = this.getAddonOptions()
 
-    if (addonOptions.enabled) {
+    if (addonOptions.enabled && addonOptions.importAssets) {
       trees = trees.concat([
         new Funnel('node_modules/tarteaucitronjs', {
           include: [

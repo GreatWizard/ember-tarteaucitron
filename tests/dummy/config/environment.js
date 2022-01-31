@@ -21,6 +21,17 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    tarteaucitron: {
+      preInit: {
+        tarteaucitronCustomText: {
+          'engage-twitter': 'Follow me on Twitter!',
+        },
+      },
+      config: {
+        removeCredit: true,
+      },
+    },
   }
 
   if (environment === 'development') {

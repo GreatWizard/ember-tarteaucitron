@@ -30,9 +30,9 @@ module.exports = function (environment) {
     [...]
 
     tarteaucitron: {
-      cdn: "https://...", // Define where the tarteaucitron assets are available, default to <your-app>/assets/tarteaucitron/
       customServices: [], // You can define your own services directly here, see https://github.com/AmauriC/tarteaucitron.js#create-custom-service
       preInit: { // Change some settings before the initialization of tarteaucitron.js
+        tarteaucitronForceCDN: "https://...", // Define where the tarteaucitron assets are available, default to <your-app>/assets/tarteaucitron/
         tarteaucitronForceLanguage: 'en', // Force the display language (default to the current browser language)
         tarteaucitronForceExpire: 365 * 10, // Force the expire cookie time (default to 365)
         tarteaucitronCustomText: { // Change a translation, see https://github.com/AmauriC/tarteaucitron.js#customize-text
@@ -65,7 +65,47 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon')
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
     'ember-tarteaucitron': {
-      enabled: true, // Enabled by default
+      enabled: false, // Enabled by default
+    },
+  })
+
+  [...]
+}
+```
+
+### CDN
+
+Here is the configuration if you want to use CDN for tarteaucitron assets:
+
+```js
+module.exports = function (environment) {
+  let ENV = {
+
+    [...]
+
+    tarteaucitron: {
+      preInit: {
+        tarteaucitronForceCDN: 'https://cdn.jsdelivr.net/npm/tarteaucitronjs@latest/',
+      },
+      [...]
+    },
+  }
+
+  [...]
+
+  return ENV
+}
+```
+
+And you can avoid to import tarteaucitron assets:
+
+```js
+const EmberAddon = require('ember-cli/lib/broccoli/ember-addon')
+
+module.exports = function (defaults) {
+  let app = new EmberAddon(defaults, {
+    'ember-tarteaucitron': {
+      importAssets: false,
     },
   })
 
@@ -75,7 +115,7 @@ module.exports = function (defaults) {
 
 ### API
 
-The service `tarteaucitron` exposes functions in order to add new jobs programmatically and listen to events.
+The `tarteaucitron` service exposes functions in order to add new jobs programmatically and listen to events.
 
 #### Setup a new job
 

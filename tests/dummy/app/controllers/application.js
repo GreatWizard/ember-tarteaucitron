@@ -6,7 +6,7 @@ export default class ApplicationController extends Controller {
   @service tarteaucitron
 
   @tracked googlefontsLoaded = false
-  @tracked facebookpixelLoaded = false
+  @tracked twitterLoaded = false
 
   constructor() {
     super(...arguments)
@@ -17,9 +17,9 @@ export default class ApplicationController extends Controller {
       this.googlefontsLoaded = true
       this.tarteaucitron.removeServiceLoadedListener('googlefonts')
     })
-    this.tarteaucitron.addServiceLoadedListener('facebookpixel', () => {
-      this.facebookpixelLoaded = true
-      this.tarteaucitron.removeServiceLoadedListener('facebookpixel')
+    this.tarteaucitron.addServiceLoadedListener('twitter', () => {
+      this.twitterLoaded = true
+      this.tarteaucitron.removeServiceLoadedListener('twitter')
     })
     this.tarteaucitron.addTACListener('tac.open_alert', () => {
       console.log('Alert is opened')
@@ -28,7 +28,7 @@ export default class ApplicationController extends Controller {
       console.log('Alert is closed')
     })
     setTimeout(() => {
-      this.tarteaucitron.addJob('facebookpixel')
+      this.tarteaucitron.addJob('twitter')
     }, 5000)
   }
 }
