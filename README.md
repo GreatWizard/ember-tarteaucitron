@@ -25,9 +25,9 @@ module.exports = function (environment) {
     [...]
 
     tarteaucitron: {
+      cdn: "https://...", // Define where the tarteaucitron assets are available, default to <your-app>/assets/tarteaucitron/
       customServices: [], // You can define your own services directly here, see https://github.com/AmauriC/tarteaucitron.js#create-custom-service
       preInit: { // Change some settings before the initialization of tarteaucitron.js
-        tarteaucitronForceCDN: '', // Force an URL to loads assets (default to current path)
         tarteaucitronForceLanguage: 'en', // Force the display language (default to the current browser language)
         tarteaucitronForceExpire: 365 * 10, // Force the expire cookie time (default to 365)
         tarteaucitronCustomText: { // Change a translation, see https://github.com/AmauriC/tarteaucitron.js#customize-text
@@ -93,10 +93,10 @@ The service names are defined in `tarteaucitron`: https://github.com/AmauriC/tar
 The following events are available:
 
 - **tac.root_available**: the root element with panel has been created, services will be loaded
-- **tac.open_alert**
-- **tac.close_alert**
-- **tac.open_panel**
-- **tac.close_panel**
+- **tac.open_alert**: the alert is opened
+- **tac.close_alert**: the alert is closed
+- **tac.open_panel**: the panel is opened
+- **tac.close_panel**: the panel is closed
 
 ##### Code example
 

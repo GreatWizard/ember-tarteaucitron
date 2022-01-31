@@ -11,15 +11,23 @@ const defaultOptions = {
 module.exports = {
   name: require('./package').name,
 
-  _options: undefined,
+  options: {
+    '@embroider/macros': {
+      setOwnConfig: {},
+    },
+  },
 
-  options() {
-    if (!this._options) {
-      let app = this._findHost()
-      this._options = Object.assign({}, defaultOptions, app.options[this.name])
+  _addonOptions: undefined,
+  getAddonOptions() {
+    if (this._addonOptions === undefined) {
+      this._addonOptions = Object.assign(
+        {},
+        defaultOptions,
+        this._findHost().options[this.name]
+      )
     }
 
-    return this._options
+    return this._addonOptions
   },
 
   included(parent) {
@@ -29,9 +37,12 @@ module.exports = {
       resolvePackagePathFrom: this.parent.root,
     })
 
-    let options = this.options()
+    this.options['@embroider/macros'].setOwnConfig.config =
+      this._findHost().project.config(process.env.EMBER_ENV)
 
-    if (options.enabled) {
+    let addonOptions = this.getAddonOptions()
+
+    if (addonOptions.enabled) {
       this.import('node_modules/tarteaucitronjs/tarteaucitron.js')
     }
 
@@ -45,9 +56,9 @@ module.exports = {
       trees.push(tree)
     }
 
-    let options = this.options()
+    let addonOptions = this.getAddonOptions()
 
-    if (options.enabled) {
+    if (addonOptions.enabled) {
       trees = trees.concat([
         new Funnel('node_modules/tarteaucitronjs', {
           include: [
@@ -56,7 +67,7 @@ module.exports = {
             'advertising.js',
             'tarteaucitron.services.js',
           ],
-          destDir: 'assets',
+          destDir: 'assets/tarteaucitron',
         }),
       ])
     }

@@ -1,9 +1,11 @@
 /* global tarteaucitron */
 import Service from '@ember/service'
-import { getOwner } from '@ember/application'
 import { tracked } from '@glimmer/tracking'
+import { getOwnConfig } from '@embroider/macros'
+const { rootURL, tarteaucitron: tacConfig } = getOwnConfig().config
 
 const DEFAULT_OPTIONS = {
+  cdn: `${rootURL}assets/tarteaucitron/`,
   customServices: [],
   preInit: {},
   config: {},
@@ -29,8 +31,6 @@ export default class TarteaucitronService extends Service {
   constructor() {
     super(...arguments)
     if (window.tarteaucitron) {
-      let { tarteaucitron: tacConfig } =
-        getOwner(this).resolveRegistration('config:environment')
       this._init(Object.assign({}, DEFAULT_OPTIONS, tacConfig))
     }
   }
@@ -52,6 +52,8 @@ export default class TarteaucitronService extends Service {
     Object.keys(tacConfig?.preInit || {}).forEach(
       (key) => (window[key] = tacConfig.preInit[key])
     )
+
+    tarteaucitron.cdn = tacConfig.cdn
 
     tarteaucitron.init(tacConfig.config || {})
 
