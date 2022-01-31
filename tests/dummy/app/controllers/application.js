@@ -10,9 +10,6 @@ export default class ApplicationController extends Controller {
 
   constructor() {
     super(...arguments)
-    this.tarteaucitron.addJob('googlefonts', {
-      googleFonts: ['Tangerine'],
-    })
     this.tarteaucitron.addServiceLoadedListener('googlefonts', () => {
       this.googlefontsLoaded = true
       this.tarteaucitron.removeServiceLoadedListener('googlefonts')

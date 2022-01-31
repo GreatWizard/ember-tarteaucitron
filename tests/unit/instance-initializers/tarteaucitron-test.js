@@ -5,6 +5,7 @@ import { initialize } from 'dummy/instance-initializers/tarteaucitron'
 import { module, test } from 'qunit'
 import Resolver from 'ember-resolver'
 import { run } from '@ember/runloop'
+import Service from '@ember/service'
 
 module('Unit | Instance Initializer | tarteaucitron', function (hooks) {
   hooks.beforeEach(function () {
@@ -20,15 +21,23 @@ module('Unit | Instance Initializer | tarteaucitron', function (hooks) {
     this.application = this.TestApplication.create({ autoboot: false })
     this.instance = this.application.buildInstance()
   })
+
   hooks.afterEach(function () {
     run(this.instance, 'destroy')
     run(this.application, 'destroy')
   })
 
-  // TODO: Replace this with your real tests.
-  test('it works', async function (assert) {
+  test('it loads the service', async function (assert) {
+    assert.expect(1)
+    this.instance.register(
+      'service:tarteaucitron',
+      class MockService extends Service {
+        constructor() {
+          super(...arguments)
+          assert.ok(true, 'MockService was created')
+        }
+      }
+    )
     await this.instance.boot()
-
-    assert.ok(true)
   })
 })

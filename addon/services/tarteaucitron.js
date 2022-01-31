@@ -128,6 +128,6 @@ export default class TarteaucitronService extends Service {
     if (!EVENTS.includes(name)) {
       throw new Error(`${name} is not a valid event`)
     }
-    this._addListener(window, name, callback)
+    this._removeListener(window, name, callback)
   }
 }

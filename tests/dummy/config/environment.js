@@ -31,6 +31,10 @@ module.exports = function (environment) {
       config: {
         removeCredit: true,
       },
+      jobs: ['googlefonts'],
+      user: {
+        families: ['Tangerine'],
+      },
     },
   }
 
