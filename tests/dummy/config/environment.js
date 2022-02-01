@@ -33,7 +33,7 @@ module.exports = function (environment) {
       },
       jobs: ['googlefonts'],
       user: {
-        families: ['Tangerine'],
+        googleFonts: ['Tangerine'],
       },
     },
   }

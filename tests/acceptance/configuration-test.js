@@ -9,6 +9,6 @@ module('Acceptance | configuration', function (hooks) {
     assert.expect(2)
     await visit('/')
     assert.deepEqual(window.tarteaucitron.job, ['googlefonts'])
-    assert.deepEqual(window.tarteaucitron.user, { families: ['Tangerine'] })
+    assert.deepEqual(window.tarteaucitron.user, { googleFonts: ['Tangerine'] })
   })
 })

@@ -158,9 +158,6 @@ export default class ApplicationController extends Controller {
 
   constructor() {
     super(...arguments)
-    this.tarteaucitron.addJob('googlefonts', {
-      googleFonts: ['Tangerine'],
-    })
     this.tarteaucitron.addServiceLoadedListener('googlefonts', () => {
       this.googlefontsLoaded = true
       this.tarteaucitron.removeServiceLoadedListener('googlefonts')
@@ -170,7 +167,7 @@ export default class ApplicationController extends Controller {
       this.tarteaucitron.removeServiceLoadedListener('facebookpixel')
     })
     setTimeout(() => {
-      this.tarteaucitron.addJob('facebookpixel')
+      this.tarteaucitron.addJob('facebookpixel', { facebookpixelId: 'YOUR-ID' })
     }, 5000)
   }
 }

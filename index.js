@@ -41,6 +41,8 @@ module.exports = {
     this.options['@embroider/macros'].setOwnConfig.config =
       this._findHost().project.config(process.env.EMBER_ENV)
 
+    this._findHost().options.fingerprint.exclude.push('tarteaucitron')
+
     let addonOptions = this.getAddonOptions()
 
     if (addonOptions.enabled) {

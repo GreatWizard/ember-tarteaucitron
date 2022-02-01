@@ -5,7 +5,6 @@ import { getOwnConfig } from '@embroider/macros'
 const { rootURL, tarteaucitron: tacConfig } = getOwnConfig().config
 
 const DEFAULT_OPTIONS = {
-  cdn: `${rootURL}assets/tarteaucitron/`,
   customServices: [],
   preInit: {},
   config: {},
@@ -55,6 +54,8 @@ export default class TarteaucitronService extends Service {
 
     if (tacConfig?.preInit?.tarteaucitronForceCDN) {
       tarteaucitron.cdn = tacConfig.preInit.tarteaucitronForceCDN
+    } else {
+      tarteaucitron.cdn = `${rootURL}assets/tarteaucitron/`
     }
 
     tarteaucitron.init(tacConfig.config || {})
