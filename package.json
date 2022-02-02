@@ -1,6 +1,6 @@
 {
   "name": "ember-tarteaucitron",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "description": "Ember integration of tarteaucitron.js, a RGPD friendly cookie manager.",
   "keywords": [
     "ember-addon",
